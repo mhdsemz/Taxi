@@ -1,4 +1,4 @@
-package general;
+package models;
 
 public class Passenger extends Person {
 

@@ -1,6 +1,6 @@
 package database;
 
-import general.Driver;
+import models.Driver;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,6 +61,18 @@ public class DriverDataBase extends DataBaseAccess {
             }
             return false;
         }
+        public int findDriverId(String username) throws SQLException {
+            int id=0;
+        if(getConnection() !=null){
+            Statement statement=getConnection().createStatement();
+            ResultSet resultSet=statement.executeQuery(String.format("SELECT id FROM taxidatabase.driver where user_name='%s'",username));
+            if (resultSet.next()){
+                id=resultSet.getInt("id");
+            }
+        }
+            return id;
+        }
+
     }
 
 

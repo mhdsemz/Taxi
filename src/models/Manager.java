@@ -1,4 +1,4 @@
-package general;
+package models;
 
 import database.DriverDataBase;
 import database.PassengerDataBase;

@@ -1,6 +1,6 @@
 package database;
 
-import general.Passenger;
+import models.Passenger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
