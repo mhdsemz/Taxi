@@ -20,7 +20,7 @@ public class PassengerDataBase extends DataBaseAccess {
             String sqlQuery = String.format("SELECT * FROM passenger");
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-                Passenger passenger = new Passenger(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("phone_number"), resultSet.getString("national_code"), resultSet.getString("gender"), resultSet.getString("birth_date"), resultSet.getString("username"),resultSet.getString("balance"));
+                Passenger passenger = new Passenger(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("phone_number"), resultSet.getString("national_code"), resultSet.getString("gender"), resultSet.getString("birth_date"), resultSet.getString("username"),resultSet.getString("balance"),resultSet.getBoolean("stateOfAttendance"));
                 passengers.add(passenger);
             }
             return passengers;

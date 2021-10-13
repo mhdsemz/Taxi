@@ -18,7 +18,6 @@ public class Main {
         DriverDataBase driverDataBase = new DriverDataBase();
         PassengerDataBase passengerDataBase = new PassengerDataBase();
         Manager manager = new Manager();
-        System.out.println("hi");
         System.out.println("***welcome***");
         showMenu();
         Scanner scanner = new Scanner(System.in);
@@ -100,6 +99,7 @@ public class Main {
                 "4.Passenger signup or login \n" +
                 "5.Show a list of drivers \n" +
                 "6.Show a list of passengers \n" +
+                "7:show ongoing travel \n"+
                 "your answer is : ");
     }
 

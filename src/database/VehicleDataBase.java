@@ -17,8 +17,8 @@ public class VehicleDataBase extends DataBaseAccess {
             if (!checkVehicle(vehicle.getTag())) {
                 if (driverDataBase.checkDriver(nationalCode)) {
                     Statement statement = getConnection().createStatement();
-                    ResultSet resultSet = statement.executeQuery("INSERT INTO taxidatabase.vehicle(id,name,color,vehicle_type,driverid) VALUES (null ,'%s','%s','%s','%s','%s');",
-                            vehicle.getTag(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getName(), driverDataBase.checkDriver(nationalCode);
+//                    ResultSet resultSet = statement.executeQuery("INSERT INTO taxidatabase.vehicle(id,name,color,vehicle_type,driverid) VALUES (null ,'%s','%s','%s','%s','%s');",
+//                            vehicle.getTag(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getName(), driverDataBase.checkDriver(nationalCode);
 
                 } else {
                     System.out.println("error");

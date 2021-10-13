@@ -34,9 +34,9 @@ public class DriverDataBase extends DataBaseAccess {
                 String sqlQuery = String.format("SELECT * FROM driver");
                 ResultSet resultSet = statement.executeQuery(sqlQuery);
                 while (resultSet.next()) {
-                    Driver driver = new Driver(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("nationalcode")
-                            , resultSet.getString("gender"), resultSet.getString("birth_date"), resultSet.getString("phone_number"), resultSet.getString("username"));
-                    drivers.add(driver);
+//                    Driver driver = new Driver(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("nationalcode")
+//                            , resultSet.getString("gender"), resultSet.getString("birth_date"), resultSet.getString("phone_number"), resultSet.getString("username"));
+//                    drivers.add(driver);
                 }
                 return drivers;
             }
