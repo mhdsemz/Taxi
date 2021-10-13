@@ -8,15 +8,26 @@ public class Person {
     private String gender;
     private String birthDate;
     private String phoneNumber;
+    private String balance;
 
-    public Person(String firstName, String lastName, String nationalCode, String gender, String birthDate, String phoneNumber,String username) {
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
+
+    public Person(String username, String firstName, String lastName, String nationalCode, String gender, String birthDate, String phoneNumber, String balance) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalCode = nationalCode;
         this.gender = gender;
         this.birthDate = birthDate;
         this.phoneNumber = phoneNumber;
-        this.username=username;
+        this.balance = balance;
     }
 
     public Person() {

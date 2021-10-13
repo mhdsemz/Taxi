@@ -2,6 +2,8 @@ package models;
 
 import database.DriverDataBase;
 import database.PassengerDataBase;
+import database.VehicleDataBase;
+import enums.Vehicle;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,10 +15,12 @@ public class Manager {
     List<Passenger> passengers = new ArrayList<>();
     DriverDataBase driverDataBase = new DriverDataBase();
     PassengerDataBase passengerDataBase = new PassengerDataBase();
+    VehicleDataBase vehicleDataBase = new VehicleDataBase();
     Driver driver = new Driver();
-    Main main=new Main();
+    Main main = new Main();
 
     Scanner scanner = new Scanner(System.in);
+    private models.Vehicle vehicle;
 
     public Manager() throws SQLException, ClassNotFoundException {
     }
@@ -33,7 +37,7 @@ public class Manager {
         Driver[] drivers = new Driver[count];
         for (int i = 0; i < count; i++) {
             System.out.println("please enter new information for Driver");
-            scanner.nextLine();
+            System.out.println();
             System.out.println("enter firstName : ");
             String firstName = scanner.next();
             System.out.println("enter lastName : ");
@@ -46,12 +50,25 @@ public class Manager {
             String birthdate = scanner.next();
             System.out.println("enter phoneNumber : ");
             String phoneNumber = scanner.next();
+            System.out.println("PLEASE SELECT TYPE OF YOUR VEHICLE");
+            System.out.println("1:van /n 2:motorCycle /n 3:car");
+            int numberType = scanner.nextInt();
+            switch (numberType) {
+                case 1:
+                    vehicle.setVehicleType(Vehicle.CAR.getNameOfVehicle());
+                    break;
+                case 3:
+                    vehicle.setVehicleType(Vehicle.VAN.getNameOfVehicle());
+                    break;
+                case 2:
+                    vehicle.setVehicleType(Vehicle.MOTORCYCLE.getNameOfVehicle());
+                    break;
+            }
             System.out.print(" enter vehicle number: ");
             String carNumber = scanner.next();
-            System.out.println("enter vehicleModel : ");
-            String carModel = scanner.next();
             System.out.println("please enter vehicle color : ");
             String carColor = scanner.next();
+            vehicleDataBase.addVehicle(nationalCode, vehicle);
             drivers[i] = new Driver();
         }
     }
@@ -100,16 +117,6 @@ public class Manager {
             System.out.println(passengers.get(i));
         }
     }
-
-//    public void signupOrLoginPassenger() throws SQLException {
-//        System.out.println("enter your username (nationalCode)");
-//        String inputNationalCode = scanner.nextLine();
-//        if (passengerDataBase.checkPassenger(inputNationalCode)){
-//            System.out.println("you had log in ");
-//            System.out.println("please enter 1 ");
-//
-//            }
-//        }
 }
 
 

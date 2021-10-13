@@ -31,7 +31,6 @@ public class Main {
                 answer = scanner.nextInt();
             case 2:
                 manager.creatPassenger(2);
-
                 printStar();
                 showMenu();
                 answer = scanner.nextInt();

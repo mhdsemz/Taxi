@@ -20,7 +20,7 @@ public class PassengerDataBase extends DataBaseAccess {
             String sqlQuery = String.format("SELECT * FROM passenger");
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-                Passenger passenger = new Passenger(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("phone_number"), resultSet.getString("national_code"), resultSet.getString("gender"), resultSet.getString("birth_date"),resultSet.getString("username"));
+                Passenger passenger = new Passenger(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("phone_number"), resultSet.getString("national_code"), resultSet.getString("gender"), resultSet.getString("birth_date"), resultSet.getString("username"),resultSet.getString("balance"));
                 passengers.add(passenger);
             }
             return passengers;
@@ -50,7 +50,39 @@ public class PassengerDataBase extends DataBaseAccess {
         }
         return false;
     }
+
+    public double showBalance(String nationalCode) throws SQLException {
+        if (getConnection() != null) {
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = String.format("SELECT balance from taxidatabase.passenger WHERE national_code='%s'", nationalCode);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+    }
+
+    public boolean increaseBalance(double balance, String national_code) throws SQLException {
+        if (getConnection() != null) {
+            Statement statement = getConnection().createStatement();
+            String query = String.format("UPDATE passenger SET balance=%2f WHERE national_code='%s'", national_code, balance);
+            int i = statement.executeUpdate(query);
+            if (i != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }
+
 
 
 
