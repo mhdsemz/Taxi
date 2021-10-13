@@ -1,7 +1,7 @@
 package models;
 
-import database.DriverDataBase;
-import database.PassengerDataBase;
+import dao.DriverDataBase;
+import dao.PassengerDataBase;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,11 +1,11 @@
-package database;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DataBaseAccess {
-    private Connection connection=null;
+    private Connection connection;
 
     public DataBaseAccess() {
         try {

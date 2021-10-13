@@ -1,7 +1,9 @@
-package database;
+package dao;
 
+import enums.UserStatus;
 import models.Passenger;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,7 +22,7 @@ public class PassengerDataBase extends DataBaseAccess {
             String sqlQuery = String.format("SELECT * FROM passenger");
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
-                Passenger passenger = new Passenger(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("phone_number"), resultSet.getString("national_code"), resultSet.getString("gender"), resultSet.getString("birth_date"), resultSet.getString("username"),resultSet.getString("balance"),resultSet.getBoolean("stateOfAttendance"));
+                Passenger passenger = new Passenger(resultSet.getString("first_name"), resultSet.getString("last_name"), resultSet.getString("phone_number"), resultSet.getString("national_code"), resultSet.getString("gender"), resultSet.getString("birth_date"), resultSet.getString("username"), resultSet.getString("balance"), resultSet.getBoolean("stateOfAttendance"), resultSet.getInt("id"));
                 passengers.add(passenger);
             }
             return passengers;
@@ -81,6 +83,23 @@ public class PassengerDataBase extends DataBaseAccess {
         }
     }
 
+    public void updateStatus(UserStatus userStatus, Passenger passenger) throws SQLException {
+        if (getConnection() != null) {
+            String sql = "UPDATE passenger SET status=? WHERE id=?";
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setString(1, userStatus.toString());
+            statement.setInt(2, passenger.getId());
+            statement.executeUpdate(sql);
+        }
+    }
+
+    public void updateAccountBalance(double value, int id) throws SQLException {
+        if (getConnection() != null) {
+            String sql = String.format("UPDATE passenger SET account_balance=? WHERE id=? ");
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.executeUpdate(sql);
+        }
+    }
 }
 
 

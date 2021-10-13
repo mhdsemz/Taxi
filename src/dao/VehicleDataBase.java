@@ -1,4 +1,4 @@
-package database;
+package dao;
 
 import models.Vehicle;
 
@@ -17,8 +17,10 @@ public class VehicleDataBase extends DataBaseAccess {
             if (!checkVehicle(vehicle.getTag())) {
                 if (driverDataBase.checkDriver(nationalCode)) {
                     Statement statement = getConnection().createStatement();
-//                    ResultSet resultSet = statement.executeQuery("INSERT INTO taxidatabase.vehicle(id,name,color,vehicle_type,driverid) VALUES (null ,'%s','%s','%s','%s','%s');",
-//                            vehicle.getTag(), vehicle.getVehicleType(), vehicle.getColor(), vehicle.getName(), driverDataBase.checkDriver(nationalCode);
+                    ResultSet resultSet = statement.executeQuery(String.format("INSERT INTO taxi.vehicle " +
+                                    "(id,name, tag, color, vehicle_type, driverid) VALUES (null,'%s', '%s', '%s', '%s', '%s');",
+                            vehicle.getName(), vehicle.getTag(), vehicle.getColor(), vehicle.getVehicleType(),
+                            driverDataBase.findDriverId(nationalCode)));
 
                 } else {
                     System.out.println("error");
@@ -29,7 +31,6 @@ public class VehicleDataBase extends DataBaseAccess {
             }
         }
     }
-
 
     public boolean checkVehicle(String tag) throws SQLException {
         if (getConnection() != null) {
@@ -43,4 +44,5 @@ public class VehicleDataBase extends DataBaseAccess {
         }
         return false;
     }
+
 }

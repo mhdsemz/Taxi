@@ -1,8 +1,8 @@
 package models;
 
-import database.DriverDataBase;
-import database.PassengerDataBase;
-import database.VehicleDataBase;
+import dao.DriverDataBase;
+import dao.PassengerDataBase;
+import dao.VehicleDataBase;
 import enums.Vehicle;
 
 import java.sql.SQLException;

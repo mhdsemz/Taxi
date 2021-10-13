@@ -1,28 +1,59 @@
 package models;
 
+import enums.Payment;
+import enums.TripStatus;
+
 public class Travel {
-    int travelId;
-    String source;
-    String destination;
-    Driver driver;
-    Passenger passenger;
-    boolean status;
-    boolean payType;
+    private int id;
+    private int driverId;
+    private int passengerId;
+    private String origin;
+    private String destination;
+    private double cost;
+    private Payment payment;
+    private TripStatus tripStatus;
 
-    public int getTravelId() {
-        return travelId;
+    public Travel(int id, int driverId, int passengerId, String origin, String destination, double cost, Payment payment, TripStatus tripStatus) {
+        this.id = id;
+        this.driverId = driverId;
+        this.passengerId = passengerId;
+        this.origin = origin;
+        this.destination = destination;
+        this.cost = cost;
+        this.payment = payment;
+        this.tripStatus = tripStatus;
     }
 
-    public void setTravelId(int travelId) {
-        this.travelId = travelId;
+    public int getId() {
+        return id;
     }
 
-    public String getSource() {
-        return source;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
+
+    public int getPassengerId() {
+        return passengerId;
+    }
+
+    public void setPassengerId(int passengerId) {
+        this.passengerId = passengerId;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     public String getDestination() {
@@ -33,45 +64,27 @@ public class Travel {
         this.destination = destination;
     }
 
-    public Driver getDriver() {
-        return driver;
+    public int getCost() {
+        return cost;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
-    public Passenger getPassenger() {
-        return passenger;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
-    public boolean isStatus() {
-        return status;
+    public TripStatus getTripStatus() {
+        return tripStatus;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public boolean isPayType() {
-        return payType;
-    }
-
-    public void setPayType(boolean payType) {
-        this.payType = payType;
-    }
-
-    public Travel(int travelId, String source, String destination, Driver driver, Passenger passenger, boolean status, boolean payType) {
-        this.travelId = travelId;
-        this.source = source;
-        this.destination = destination;
-        this.driver = driver;
-        this.passenger = passenger;
-        this.status = status;
-        this.payType = payType;
+    public void setTripStatus(TripStatus tripStatus) {
+        this.tripStatus = tripStatus;
     }
 }
