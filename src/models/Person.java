@@ -123,7 +123,7 @@ public class Person {
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

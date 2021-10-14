@@ -25,6 +25,9 @@ public class Manager {
     Main main = new Main();
     Travel travel = new Travel();
     Passenger passenger = new Passenger();
+    String origin;
+    String destination;
+    private double accountBalance;
 
     Scanner scanner = new Scanner(System.in);
     private models.Vehicle vehicle;
@@ -179,7 +182,7 @@ public class Manager {
         }
     }
 
-    public void showPassengerMenu(Passenger passenger) {
+    public void showProPassengerMenu(Passenger passenger) throws SQLException {
         System.out.println("please choose your number \n " +
                 " 1.Travel request (pay by cash) \n " +
                 " 2.Travel request (pay by account balance) \n " +
@@ -188,19 +191,70 @@ public class Manager {
         int choose = scanner.nextInt();
         switch (choose) {
             case 1:
-
+            case 2:
+                System.out.print("enter coordinates of origin(split with ',' ): ");
+                origin = scanner.nextLine();
+                System.out.print("enter coordinates of destination(split with ',' ): ");
+                destination = scanner.nextLine();
+                setOriginAndDestinationAndReturnCost();
+                break;
+            case 3:
+                System.out.println("please enter amount of increase ");
+                double amount = scanner.nextDouble();
+                double newAccountBalance = increaseAccountBalance(amount);
+                passengerDataBase.increaseBalance(newAccountBalance,passenger.getId());
+                break;
+            case 4:
+                showMenu();
+                break;
         }
     }
 
-    public void setOriginAndDestination() {
-        System.out.println("please enter origin");
-        String origin=scanner.next();
-        System.out.println("please enter destination");
-        String destination=scanner.next();
+    public int setOriginAndDestinationAndReturnCost() {
+        System.out.println("please enter your origin and destination like this --> (origin,destination)");
+        String[] originCoordinates = origin.split(",");
+        double x1 = Integer.parseInt(originCoordinates[0]);
+        double y1 = Integer.parseInt(originCoordinates[1]);
 
+        String[] destinationCoordinate = destination.split("'");
+        double x2 = Integer.parseInt(destinationCoordinate[0]);
+        double y2 = Integer.parseInt(destinationCoordinate[1]);
+
+
+        int cost = (int) (Math.floor(Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))) * 1000);
+        return cost;
     }
-    public void CalculateCost(){
-        //to do
+
+    public static void showMenu() {
+        System.out.println("**please select** \n" +
+                "1..Add a group of drivers \n" +
+                "2.Add a group of passengers \n" +
+                "3.Driver signup or login  \n" +
+                "4.Passenger signup or login \n" +
+                "5.Show a list of drivers \n" +
+                "6.Show a list of passengers \n" +
+                "7:show ongoing travel \n" +
+                "your answer is : ");
+    }
+
+    public int increaseAccountBalance(Double amount) {
+        return (int) (accountBalance += amount);
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 }
 
