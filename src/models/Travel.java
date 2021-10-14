@@ -1,7 +1,7 @@
 package models;
 
 import enums.Payment;
-import enums.TripStatus;
+import enums.TravelStatus;
 
 public class Travel {
     private int id;
@@ -11,9 +11,9 @@ public class Travel {
     private String destination;
     private double cost;
     private Payment payment;
-    private TripStatus tripStatus;
+    private TravelStatus travelStatus;
 
-    public Travel(int id, int driverId, int passengerId, String origin, String destination, double cost, Payment payment, TripStatus tripStatus) {
+    public Travel(int id, int driverId, int passengerId, String origin, String destination, double cost, Payment payment, TravelStatus travelStatus) {
         this.id = id;
         this.driverId = driverId;
         this.passengerId = passengerId;
@@ -21,7 +21,11 @@ public class Travel {
         this.destination = destination;
         this.cost = cost;
         this.payment = payment;
-        this.tripStatus = tripStatus;
+        this.travelStatus = travelStatus;
+    }
+
+    public Travel() {
+
     }
 
     public int getId() {
@@ -64,7 +68,7 @@ public class Travel {
         this.destination = destination;
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 
@@ -80,11 +84,11 @@ public class Travel {
         this.payment = payment;
     }
 
-    public TripStatus getTripStatus() {
-        return tripStatus;
+    public TravelStatus getTripStatus() {
+        return travelStatus;
     }
 
-    public void setTripStatus(TripStatus tripStatus) {
-        this.tripStatus = tripStatus;
+    public void setTripStatus(TravelStatus travelStatus) {
+        this.travelStatus = travelStatus;
     }
 }

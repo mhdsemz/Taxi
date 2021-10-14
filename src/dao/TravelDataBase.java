@@ -1,11 +1,15 @@
 package dao;
 
+import enums.TravelStatus;
 import models.Travel;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TravelDataBase extends DataBaseAccess {
+    Travel travel=new Travel();
+    private Connection getconnection;
 
 
     public void addTravel(Travel travel) throws SQLException {
@@ -18,15 +22,20 @@ public class TravelDataBase extends DataBaseAccess {
             statement.setString(2, travel.getDestination());
             statement.setString(3, travel.getOrigin());
             statement.setInt(4, travel.getDriverId());
-            statement.setInt(5, travel.getCost());
+            statement.setDouble(5, travel.getCost());
             statement.executeUpdate(sqlQuery);
         }
     }
 
 
-    public void createTravel() {
-        //TO DO
+    public void updateStatus(Travel travel, TravelStatus travelStatus) throws SQLException {
+        if (getConnection() != null) {
+            String sql = "UPDATE trips SET status = ? WHERE id = ?;";
+            PreparedStatement statement = getconnection.prepareStatement(sql);
+            statement.setString(1, travelStatus.toString().toLowerCase());
+            statement.setInt(2, travel.getId());
+            statement.executeUpdate();
+        }
     }
-
 
 }

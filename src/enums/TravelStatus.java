@@ -1,6 +1,6 @@
 package enums;
 
-public enum TripStatus {
+public enum TravelStatus {
     ON_travel,
     FINISHED;
 }

@@ -2,8 +2,10 @@ package models;
 
 import dao.DriverDataBase;
 import dao.PassengerDataBase;
+import dao.TravelDataBase;
 import dao.VehicleDataBase;
 import enums.Payment;
+import enums.TravelStatus;
 import enums.UserStatus;
 import enums.Vehicle;
 
@@ -18,9 +20,11 @@ public class Manager {
     DriverDataBase driverDataBase = new DriverDataBase();
     PassengerDataBase passengerDataBase = new PassengerDataBase();
     VehicleDataBase vehicleDataBase = new VehicleDataBase();
+    TravelDataBase travelDataBase = new TravelDataBase();
     Driver driver = new Driver();
     Main main = new Main();
-    Payment payment;
+    Travel travel = new Travel();
+    Passenger passenger = new Passenger();
 
     Scanner scanner = new Scanner(System.in);
     private models.Vehicle vehicle;
@@ -121,7 +125,7 @@ public class Manager {
         }
     }
 
-    public void signUpOrLoginForDriver(int number) throws SQLException {
+    public void signUpOrLoginForDriver(int number, Driver driver) throws SQLException {
         System.out.println("please enter your personal id");
         if (driverDataBase.checkDriver(scanner.next())) {
             System.out.println("you had login");
@@ -130,48 +134,75 @@ public class Manager {
             if (status.equals(UserStatus.WAITING.toString())) {
                 System.out.println("you should waiting for travel");
             } else if (status.equals(UserStatus.NO_REQUEST.toString())) {
-                SuggestForNoRequest(driver);
-                scanner.nextLine();
+                System.out.println("1:you can accept a trip \n " +
+                        "2:you can exit \n ");
+                int choose = scanner.nextInt();
+                switch (choose) {
+                    case 1:
+                        driver.setUserStatus(UserStatus.WAITING);
+                        driverDataBase.updateStatus(driver, driver.getUserStatus());
+                        break;
+                    case 2:
+                        break;
+                }
             } else if (status.equals(UserStatus.ON_TRIP.toString())) {
+                Payment payment = null;
+                boolean configByDriver;
+                payment = travel.getPayment();
+                System.out.println("now you are on travel!!! please enter your selection \n" +
+                        "1:confirm that you got cashPay \n " +
+                        "2:end the travel \n " +
+                        "3:exit ");
+                int choose = scanner.nextInt();
+                switch (choose) {
+                    case 1:
+                        if (payment.equals(Payment.ACCOUNT_BALANCE)) {
+                            System.out.println("your passenger has paid with account balance");
+                        } else if (payment.equals(Payment.CASH)) {
+                            System.out.println("your payment config !! \n your passenger has paid by cash");
+                            configByDriver = true;
+                            passengerDataBase.updateStatus(UserStatus.NO_REQUEST, passenger);
+                            travelDataBase.updateStatus(travel, TravelStatus.FINISHED);
+                            driverDataBase.updateStatus(driver, UserStatus.NO_REQUEST);
 
-
+                        } else {
+                            System.out.println(" something wrong in pay");
+                        }
+                        break;
+                    case 2:
+                        System.out.println("your travel is ended");
+                }
             } else {
                 System.out.println("not valid");
+
             }
         }
     }
 
-
-    public void SuggestForNoRequest(Driver driver) throws SQLException {
-        System.out.println("1:you can accept a trip \n +" +
-                "2:you can exit \n ");
-        int number = scanner.nextInt();
-        switch (number) {
+    public void showPassengerMenu(Passenger passenger) {
+        System.out.println("please choose your number \n " +
+                " 1.Travel request (pay by cash) \n " +
+                " 2.Travel request (pay by account balance) \n " +
+                " 3.Increase account balance \n " +
+                "4: exit");
+        int choose = scanner.nextInt();
+        switch (choose) {
             case 1:
-                driver.setUserStatus(UserStatus.WAITING);
-                driverDataBase.updateStatus(driver, driver.getUserStatus());
-                break;
-            case 2:
-                break;
-        }
 
+        }
     }
 
-    public void SuggestForOnTravel(Driver driver) {
-        Payment payment = null;
+    public void setOriginAndDestination() {
+        System.out.println("please enter origin");
+        String origin=scanner.next();
+        System.out.println("please enter destination");
+        String destination=scanner.next();
 
-
-        System.out.println("now you are on travel!!! please enter your selection \n" +
-                "1:confirm that you got cashPay \n " +
-                "2:travel finished \n " +
-                "3:exit ");
-        int selection = scanner.nextInt();
-        switch (selection) {
-            case 1:
-                if (payment.equals())
-                    break;
-        }
+    }
+    public void CalculateCost(){
+        //to do
     }
 }
+
 
 
