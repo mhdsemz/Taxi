@@ -99,6 +99,14 @@ public class Person {
         this.username = username;
     }
 
+    public UserStatus getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
+    }
+
     @Override
     public String toString() {
         return "Person{" +

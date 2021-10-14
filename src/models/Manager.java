@@ -3,6 +3,8 @@ package models;
 import dao.DriverDataBase;
 import dao.PassengerDataBase;
 import dao.VehicleDataBase;
+import enums.Payment;
+import enums.UserStatus;
 import enums.Vehicle;
 
 import java.sql.SQLException;
@@ -18,6 +20,7 @@ public class Manager {
     VehicleDataBase vehicleDataBase = new VehicleDataBase();
     Driver driver = new Driver();
     Main main = new Main();
+    Payment payment;
 
     Scanner scanner = new Scanner(System.in);
     private models.Vehicle vehicle;
@@ -115,6 +118,58 @@ public class Manager {
         passengers = passengerDataBase.showListPassengers();
         for (int i = 0; i < passengers.size(); i++) {
             System.out.println(passengers.get(i));
+        }
+    }
+
+    public void signUpOrLoginForDriver(int number) throws SQLException {
+        System.out.println("please enter your personal id");
+        if (driverDataBase.checkDriver(scanner.next())) {
+            System.out.println("you had login");
+            String status = driver.getUserStatus().toString();
+
+            if (status.equals(UserStatus.WAITING.toString())) {
+                System.out.println("you should waiting for travel");
+            } else if (status.equals(UserStatus.NO_REQUEST.toString())) {
+                SuggestForNoRequest(driver);
+                scanner.nextLine();
+            } else if (status.equals(UserStatus.ON_TRIP.toString())) {
+
+
+            } else {
+                System.out.println("not valid");
+            }
+        }
+    }
+
+
+    public void SuggestForNoRequest(Driver driver) throws SQLException {
+        System.out.println("1:you can accept a trip \n +" +
+                "2:you can exit \n ");
+        int number = scanner.nextInt();
+        switch (number) {
+            case 1:
+                driver.setUserStatus(UserStatus.WAITING);
+                driverDataBase.updateStatus(driver, driver.getUserStatus());
+                break;
+            case 2:
+                break;
+        }
+
+    }
+
+    public void SuggestForOnTravel(Driver driver) {
+        Payment payment = null;
+
+
+        System.out.println("now you are on travel!!! please enter your selection \n" +
+                "1:confirm that you got cashPay \n " +
+                "2:travel finished \n " +
+                "3:exit ");
+        int selection = scanner.nextInt();
+        switch (selection) {
+            case 1:
+                if (payment.equals())
+                    break;
         }
     }
 }
